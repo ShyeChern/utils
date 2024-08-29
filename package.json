@@ -1,0 +1,22 @@
+{
+  "name": "utils",
+  "version": "0.0.1",
+  "description": "collection of helper function",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShyeChern/utils.git"
+  },
+  "keywords": [
+    "utils"
+  ],
+  "author": "Shye Chern",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShyeChern/utils/issues"
+  },
+  "homepage": "https://github.com/ShyeChern/utils#readme"
+}

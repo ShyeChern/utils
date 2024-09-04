@@ -23,6 +23,6 @@ npm version
 - Test whole project: `npm test`
 - Test specific file (regex): `npm test -- tests/src/security.test.js`
 
-## Build
+## Publish
 
-- Build: `npm run build`
+- Publish: `npm publish`

@@ -7,11 +7,9 @@
 - [Test](#test)
 - [Build](#build)
 
-npm version
-
 ## Installation
 
-- Local: `npm run build && npm i /path/to/your/build/file.tgz`
+- Local: `npm run build && npm i /path/to/your/build/chern_1997-utils-x.x.x.tgz`
 - Npm: `npm i @chern_1997/utils`
 
 ## Development

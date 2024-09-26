@@ -10,6 +10,7 @@
 	"scripts": {
 		"watch": "npx tsc -w",
 		"build": "sh ./scripts/build.sh",
+		"publish": "npm publish --access public",
 		"test": "jest"
 	},
 	"repository": {

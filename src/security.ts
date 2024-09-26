@@ -26,6 +26,9 @@ export const generateToken = (
 	return token;
 };
 
+/**
+ * Verify jwt token
+ */
 export const verifyToken = (token: string, options: SignOptions & TokenOption = {}) => {
 	let secret = process.env.JWT_SECRET!;
 	options = {

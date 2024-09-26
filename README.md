@@ -24,3 +24,7 @@
 ## Publish
 
 - Publish: `npm run publish`
+
+## Unpublish
+
+- Unpublish: `npm unpublish @chern_1997/utils@0.0.0`

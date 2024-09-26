@@ -44,7 +44,7 @@ describe('utils/security', () => {
 		});
 
 		test('should verify password', () => {
-			const result = security.compareHash(password, hashedPassword);
+			const result = security.verifyHash(password, hashedPassword);
 			expect(result).toBe(true);
 		});
 	});

@@ -23,4 +23,4 @@
 
 ## Publish
 
-- Publish: `npm publish`
+- Publish: `npm run publish`

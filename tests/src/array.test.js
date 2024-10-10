@@ -144,5 +144,10 @@ describe('utils/array', () => {
 			const result = array.groupBy(arrayObjects, { converter: (v) => v.gender.toLowerCase() });
 			expect(Object.keys(result).length).toBe(2);
 		});
+
+		test('should able to group array of object with single value', () => {
+			const result = array.groupBy(arrayObjects, { field: 'gender', single: true });
+			expect(result.m.name).toBe(arrayObjects[3].name);
+		});
 	});
 });

@@ -61,15 +61,25 @@ export const removeDuplicates = <T>(arr: T[], options: ConverterOption = {}) => 
 	return { result: uniqueArray, uniques: Object.values(seen) };
 };
 
+type GroupByOption = ConverterOption & {
+	/** is single object */
+	single?: boolean;
+};
+
 /**
  * Group by value in array
  */
-export const groupBy = <T>(arr: T[], options: ConverterOption = {}) => {
+export const groupBy = <T>(arr: T[], options: GroupByOption = {}) => {
 	const converter = getConverter(options);
-	const result: Record<string, T[]> = {};
+	const result: Record<string, any> = {};
+	const isSingle = options.single ?? false;
 
 	for (const value of arr) {
 		const key = converter(value);
+		if (isSingle) {
+			result[key] = value;
+			continue;
+		}
 		if (!result[key]) result[key] = [];
 		result[key].push(value);
 	}

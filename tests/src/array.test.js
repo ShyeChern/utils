@@ -23,7 +23,7 @@ describe('utils/array', () => {
 		test('should able to sort array of object', () => {
 			const sortedArrayOfObjects = array.sort(arrayOfObjects, { field: 'number', numeric: true });
 			expect(sortedArrayOfObjects[0].number).toBe(1);
-			expect(sortedArrayOfObjects[sortedArrayOfObjects.length - 1].number).toBe(5);
+			expect(sortedArrayOfObjects.at(-1).number).toBe(5);
 		});
 
 		test('should able to sort array in ascending and decending', () => {
@@ -38,18 +38,18 @@ describe('utils/array', () => {
 				reverse: true,
 			});
 			expect(sortedArrayAscending[0].number).toBe(1);
-			expect(sortedArrayAscending[sortedArrayAscending.length - 1].number).toBe(5);
+			expect(sortedArrayAscending.at(-1).number).toBe(5);
 			expect(sortedArrayDescending[0].number).toBe(5);
-			expect(sortedArrayDescending[sortedArrayDescending.length - 1].number).toBe(1);
+			expect(sortedArrayDescending.at(-1).number).toBe(1);
 		});
 
 		test('should able to sort array by providing custom converter function', () => {
 			const sortedArrayNumber = array.sort([6, 10, 2, 1.5, 1.2, 1.3, 1, 100.1, 100.5, 100.3, 10], {
-				converter: parseInt,
+				converter: Number.parseInt,
 				numeric: true,
 			});
 			expect(sortedArrayNumber[0]).toBe(1.5);
-			expect(sortedArrayNumber[sortedArrayNumber.length - 1]).toBe(100.3);
+			expect(sortedArrayNumber.at(-1)).toBe(100.3);
 		});
 
 		test('should able to sort array by providing custom compare function', () => {
@@ -64,7 +64,7 @@ describe('utils/array', () => {
 			});
 
 			expect(sortedArrayStringLength[0].string).toBe('Coconut');
-			expect(sortedArrayStringLength[sortedArrayStringLength.length - 1].string).toBe('Apple');
+			expect(sortedArrayStringLength.at(-1).string).toBe('Apple');
 		});
 	});
 

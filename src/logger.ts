@@ -11,15 +11,15 @@ export class Logger {
 		this.requestId = opts.requestId;
 	}
 
-	log() {
-		console.log(new Date().toISOString(), this.requestId, ...arguments);
+	log(...args: any[]) {
+		console.log(new Date().toISOString(), this.requestId, ...args);
 	}
 
-	info() {
-		console.info(new Date().toISOString(), this.requestId, ...arguments);
+	info(...args: any[]) {
+		console.info(new Date().toISOString(), this.requestId, ...args);
 	}
 
-	error() {
-		console.error(new Date().toISOString(), this.requestId, ...arguments);
+	error(...args: any[]) {
+		console.error(new Date().toISOString(), this.requestId, ...args);
 	}
 }

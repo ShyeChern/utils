@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 type ConverterFunction = (v: any, ...args: any[]) => any;
 
 type ConverterOption = {
@@ -19,6 +20,7 @@ type SortOption = ConverterOption & {
 	/** is numeric value */
 	numeric?: boolean;
 	/** compare function to determine order of element */
+	// eslint-disable-next-line no-unused-vars
 	compare?: (a: any, b: any) => any;
 };
 

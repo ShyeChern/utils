@@ -1,5 +1,5 @@
+import crypto from 'node:crypto';
 import jwt, { SignOptions } from 'jsonwebtoken';
-import crypto from 'crypto';
 
 type TokenOption = {
 	/** is refresh token */

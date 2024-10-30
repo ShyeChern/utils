@@ -37,7 +37,7 @@ export default tseslint.config(
 			'prefer-const': 'error',
 			'no-use-before-define': 'error',
 			'unicorn/prefer-node-protocol': 'error',
-			'no-unused-vars': ['error', { ignoreRestSiblings: true }],
+			'no-unused-vars': ['error', { ignoreRestSiblings: true, argsIgnorePattern: '^_' }],
 			'@typescript-eslint/no-explicit-any': 'off',
 			'@stylistic/quotes': ['error', 'single'],
 			'@stylistic/indent': ['error', 'tab'],

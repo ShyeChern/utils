@@ -66,6 +66,9 @@ export const removeDuplicates = <T>(arr: T[], options: ConverterOption = {}) => 
 type GroupByOption = ConverterOption & {
 	/** is single object */
 	single?: boolean;
+	/** map object */
+	// eslint-disable-next-line no-unused-vars
+	mapper?: (v: any) => any;
 };
 
 /**
@@ -75,15 +78,17 @@ export const groupBy = <T>(arr: T[], options: GroupByOption = {}) => {
 	const converter = getConverter(options);
 	const result: Record<string, any> = {};
 	const isSingle = options.single ?? false;
+	const mapper = options.mapper ?? ((v) => v);
 
 	for (const value of arr) {
 		const key = converter(value);
+		const mapValue = mapper(value);
 		if (isSingle) {
-			result[key] = value;
+			result[key] = mapValue;
 			continue;
 		}
 		if (!result[key]) result[key] = [];
-		result[key].push(value);
+		result[key].push(mapValue);
 	}
 
 	return result;

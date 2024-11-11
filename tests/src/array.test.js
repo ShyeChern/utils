@@ -149,5 +149,14 @@ describe('utils/array', () => {
 			const result = array.groupBy(arrayObjects, { field: 'gender', single: true });
 			expect(result.m.name).toBe(arrayObjects[3].name);
 		});
+
+		test('should able to group array with mapper output', () => {
+			const result = array.groupBy(arrayObjects, {
+				field: 'gender',
+				mapper: (v) => ({ ...v, newName: v.name.toLowerCase() }),
+			});
+			expect(result.m[0].newName).toBe(arrayObjects[1].name.toLowerCase());
+			expect(result.m[1].newName).toBe(arrayObjects[3].name.toLowerCase());
+		});
 	});
 });

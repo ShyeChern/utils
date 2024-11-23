@@ -14,6 +14,9 @@
 		"lint": "npx eslint",
 		"test": "jest"
 	},
+	"bin": {
+		"gen-api": "./lib/scripts/gen-api.js"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/ShyeChern/utils.git"
@@ -33,7 +36,10 @@
 		"globalTeardown": "./tests/teardown.js"
 	},
 	"dependencies": {
-		"jsonwebtoken": "^9.0.2"
+		"date-fns": "^4.1.0",
+		"joi": "^17.13.3",
+		"jsonwebtoken": "^9.0.2",
+		"multer": "^1.4.5-lts.1"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.13.0",

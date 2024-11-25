@@ -1,6 +1,6 @@
 const { app } = require('../constants');
-const Base = require('./base');
 const BaseError = require('../base/error');
+const Base = require('./base');
 
 module.exports = class ServiceBase extends Base {
 	constructor(opts) {

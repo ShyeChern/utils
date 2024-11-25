@@ -1,6 +1,6 @@
 const { app } = require('../constants');
-const Base = require('./base');
 const validator = require('../base/validator');
+const Base = require('./base');
 
 module.exports = class ControllerBase extends Base {
 	constructor(opts) {

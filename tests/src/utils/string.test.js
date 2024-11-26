@@ -1,4 +1,4 @@
-const { string } = require('../../lib');
+const { string } = require('../../../lib');
 
 describe('utils/string-helper', () => {
 	test('should convert normal text into camel case', () => {

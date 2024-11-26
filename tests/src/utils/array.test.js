@@ -1,4 +1,4 @@
-const { array } = require('../../lib');
+const { array } = require('../../../lib');
 
 describe('utils/array', () => {
 	describe('sort', () => {

@@ -1,4 +1,4 @@
-const { security } = require('../../lib');
+const { security } = require('../../../lib');
 
 describe('utils/security', () => {
 	describe('generateToken verifyToken', () => {

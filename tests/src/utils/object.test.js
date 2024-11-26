@@ -1,4 +1,4 @@
-const { object } = require('../../lib');
+const { object } = require('../../../lib');
 
 describe('utils/object', () => {
 	describe('getDiff', () => {

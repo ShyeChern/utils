@@ -1,4 +1,4 @@
-const { Logger } = require('../../lib');
+const { Logger } = require('../../../lib');
 
 describe('utils/logger', () => {
 	const requestId = 'unitTest';

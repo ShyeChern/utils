@@ -1,5 +1,5 @@
 const { app } = require('../constants');
-const validator = require('../base/validator');
+const { validator } = require('../base');
 const Base = require('./base');
 
 module.exports = class ControllerBase extends Base {

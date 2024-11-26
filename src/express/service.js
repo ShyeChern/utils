@@ -1,5 +1,5 @@
 const { app } = require('../constants');
-const BaseError = require('../base/error');
+const { BaseError } = require('../base');
 const Base = require('./base');
 
 module.exports = class ServiceBase extends Base {

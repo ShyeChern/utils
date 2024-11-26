@@ -1,0 +1,5 @@
+{
+	"error": "Invalid input. Please review your input and try again.",
+	"concurrency": "Data has been updated by another user. Please refresh and try again.",
+	"fileLimitExceeded": "The file size exceeds the maximum allowed limit of {{fileSize}}. Please upload a smaller file."
+}

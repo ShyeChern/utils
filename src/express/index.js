@@ -3,6 +3,7 @@ const ControllerBase = require('./controller');
 const RepositoryBase = require('./repository');
 const ServiceBase = require('./service');
 const container = require('./container');
+const init = require('./init');
 
 module.exports = {
 	Base,
@@ -10,4 +11,5 @@ module.exports = {
 	RepositoryBase,
 	ServiceBase,
 	container,
+	init,
 };

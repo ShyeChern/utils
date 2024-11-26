@@ -3,7 +3,7 @@ const multer = require('multer');
 const { format } = require('date-fns');
 const { array } = require('../utils');
 const { error: errorCode, file } = require('../constants');
-const BaseError = require('../base/error');
+const { BaseError } = require('../base');
 
 module.exports = class Base {
 	constructor(opts) {

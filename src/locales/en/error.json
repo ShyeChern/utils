@@ -1,0 +1,5 @@
+{
+	"serverError": "Something went wrong, please try again later. If the error still persist, please contact customer service with the reference number.",
+	"unauthorized": "Unauthorized access",
+	"forbidden": "Forbidden access"
+}

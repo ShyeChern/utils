@@ -1,6 +1,4 @@
 const app = Object.freeze({
-	NAME: 'service',
-
 	SYSTEM_USER: {
 		id: 'SYSTEM',
 		username: 'service',

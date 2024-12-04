@@ -1,7 +1,7 @@
-const Joi = require('joi');
-const { file: fileConst } = require('../constants');
+import Joi from 'joi';
+import { file as fileConst } from '../constants';
 
-module.exports.pagination = Joi.object({
+const pagination = Joi.object({
 	limit: Joi.number().min(0).default(10),
 	page: Joi.number().min(1).default(1),
 	sorts: Joi.array().items(
@@ -16,20 +16,21 @@ const file = Joi.object({
 	filename: Joi.string().required(),
 	path: Joi.string().required(),
 });
-module.exports.file = file;
 
-module.exports.pdf = Joi.object({
+const pdf = Joi.object({
 	mimetype: Joi.string().required().valid(fileConst.MIME_TYPE.PDF),
 }).concat(file);
 
-module.exports.excel = Joi.object({
+const excel = Joi.object({
 	mimetype: Joi.string().required().valid(fileConst.MIME_TYPE.XLS, fileConst.MIME_TYPE.XLSX),
 }).concat(file);
 
-module.exports.image = Joi.object({
+const image = Joi.object({
 	mimetype: Joi.string().required().valid(fileConst.MIME_TYPE.JPEG, fileConst.MIME_TYPE.PNG),
 }).concat(file);
 
-module.exports.concurrency = Joi.object({
+const concurrency = Joi.object({
 	updatedAt: Joi.date().required(),
 });
+
+export { pagination, file, pdf, excel, image, concurrency };

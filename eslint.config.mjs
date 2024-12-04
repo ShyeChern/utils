@@ -19,7 +19,7 @@ export default tseslint.config(
 		},
 	},
 	{
-		ignores: ['**/*.js', '**/*d.ts'],
+		ignores: ['lib/**/*.js', '**/*d.ts'],
 	},
 	{
 		files: ['tests/**/*'],

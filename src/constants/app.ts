@@ -1,4 +1,4 @@
-const app = Object.freeze({
+export const app = Object.freeze({
 	SYSTEM_USER: {
 		id: 'SYSTEM',
 		username: 'service',
@@ -18,5 +18,3 @@ const app = Object.freeze({
 	CONFLICT: 409,
 	INTERNAL_SERVER_ERROR: 500,
 });
-
-module.exports = app;

@@ -1,4 +1,4 @@
-const file = Object.freeze({
+export const file = Object.freeze({
 	SIZE: {
 		'1MB': 1048576,
 		'10MB': 10485760,
@@ -15,4 +15,4 @@ const file = Object.freeze({
 	},
 });
 
-module.exports = file;
+export default file;

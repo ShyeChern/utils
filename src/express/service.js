@@ -1,4 +1,4 @@
-const { app } = require('../constants');
+const { app, error } = require('../constants');
 const { BaseError } = require('../base');
 const Base = require('./base');
 
@@ -9,7 +9,10 @@ module.exports = class ServiceBase extends Base {
 
 	checkConcurrency(prevValue, newValue) {
 		if (new Date(prevValue.updatedAt).getTime() > new Date(newValue.updatedAt).getTime()) {
-			throw new BaseError(this.t('validation.concurrency'));
+			throw new BaseError(this.t('validation.concurrency'), {
+				statusCode: app.CONFLICT,
+				code: error.CONFLICT,
+			});
 		}
 		delete newValue.updatedAt;
 	}

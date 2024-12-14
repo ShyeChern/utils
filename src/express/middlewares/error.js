@@ -1,8 +1,7 @@
 const { BaseError } = require('../../base');
 const { app } = require('../../constants');
 
-// eslint-disable-next-line no-unused-vars
-module.exports = (err, req, res, next) => {
+module.exports = (err, req, res, _next) => {
 	if (err instanceof BaseError) {
 		return res
 			.status(err.statusCode)

@@ -1,7 +1,7 @@
 const { asValue } = require('awilix');
 const { security } = require('../../utils');
 const { BaseError } = require('../../base');
-const { cache, app } = require('../../constants');
+const { cache, app, error: errorCode } = require('../../constants');
 
 module.exports = (config) => {
 	return async (req, res, next) => {
@@ -32,7 +32,7 @@ module.exports = (config) => {
 			const params = {
 				statusCode: app.UNAUTHORIZED,
 			};
-			if (error.name === 'TokenExpiredError') params.code = error.TOKEN_EXPIRED;
+			if (error.name === 'TokenExpiredError') params.code = errorCode.TOKEN_EXPIRED;
 
 			return next(new BaseError(req.__('error.unauthorized'), params));
 		}

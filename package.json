@@ -1,6 +1,6 @@
 {
 	"name": "@chern_1997/utils",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"description": "collection of utilities function",
 	"main": "lib/index.js",
 	"types": "lib/types/index.d.ts",

@@ -35,7 +35,7 @@ const apiRoutes = (opts) => {
 module.exports = (opts, config) => {
 	app.use(middleware.auth(config), apiRoutes(opts));
 
-	app.use('/*', (req, res) => {
+	app.use('/*notFound', (req, res) => {
 		res.status(appConstant.NOT_FOUND).send(`${req.method} ${req.originalUrl} endpoint not found`);
 	});
 

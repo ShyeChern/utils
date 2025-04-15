@@ -31,7 +31,7 @@ export default tseslint.config(
 			import: importPlugin,
 		},
 	},
-	eslintPluginUnicorn.configs['flat/recommended'],
+	eslintPluginUnicorn.configs['recommended'],
 	{
 		rules: {
 			'prefer-const': 'error',

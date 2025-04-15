@@ -52,12 +52,12 @@ describe('express/route', () => {
 		};
 
 		test('should able list routes with correct handler', async () => {
-			const routerMiddleware = app._router.stack.at(-2);
+			const routerMiddleware = app.router.stack.at(-2);
 			expect(routerMiddleware.handle.stack.length).toBe(3);
 		});
 
 		test('should able execute route handler', async () => {
-			const routerMiddleware = app._router.stack.at(-2);
+			const routerMiddleware = app.router.stack.at(-2);
 			const updateFunc = routerMiddleware.handle.stack.at(-1);
 			const spyMiddlewareFunc = jest.spyOn(middleware, 'handler');
 			const spyUpdateFunc = jest.spyOn(req.container.cradle.userController, 'update');
@@ -70,7 +70,7 @@ describe('express/route', () => {
 		});
 
 		test('should able show not found if path is not found', async () => {
-			const notFoundMiddleware = app._router.stack.at(-1);
+			const notFoundMiddleware = app.router.stack.at(-1);
 			let result;
 			notFoundMiddleware.handle(
 				{},

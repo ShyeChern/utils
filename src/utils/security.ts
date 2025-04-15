@@ -1,5 +1,7 @@
 import crypto from 'node:crypto';
 import jwt, { SignOptions } from 'jsonwebtoken';
+import { app } from '../constants';
+import { string } from '../utils';
 
 type TokenOption = {
 	/** is refresh token */
@@ -60,4 +62,36 @@ export const verifyHash = (text: string, hashed: string) => {
 	const hashedText = crypto.scryptSync(text, salt, 64);
 	const result = crypto.timingSafeEqual(hashedText, Buffer.from(hash, 'hex'));
 	return result;
+};
+
+export const encrypt = (data: string | Record<string, unknown>) => {
+	const key = process.env.AES_HEX_KEY;
+	if (!key) throw new Error('AES_HEX_KEY not found');
+
+	if (typeof data !== 'string') data = JSON.stringify(data);
+
+	const iv = crypto.randomBytes(16);
+	const cipher = crypto.createCipheriv(app.ALGORITHM.AES_256_CBC, Buffer.from(key, 'hex'), iv);
+	let encrypted = cipher.update(data, 'utf8', 'hex');
+	encrypted += cipher.final('hex');
+	return `${iv.toString('hex')}:${encrypted}`;
+};
+
+export const decrypt = (text: string) => {
+	const key = process.env.AES_HEX_KEY;
+	if (!key) throw new Error('AES_HEX_KEY not found');
+
+	const splitted = text.split(':');
+	if (!splitted[0] || !splitted[1]) throw new Error('Invalid text format, cannot decrypt data');
+
+	const [ivHex, data] = splitted;
+	const ivBuffer = Buffer.from(ivHex, 'hex');
+	const decipher = crypto.createDecipheriv(
+		app.ALGORITHM.AES_256_CBC,
+		Buffer.from(key, 'hex'),
+		ivBuffer,
+	);
+	let decrypted = decipher.update(data, 'hex', 'utf8');
+	decrypted += decipher.final('utf8');
+	return string.isJson(decrypted);
 };

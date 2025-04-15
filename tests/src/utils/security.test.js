@@ -15,7 +15,7 @@ describe('utils/security', () => {
 			expect(result.id).toBe(payload.id);
 		});
 
-		it('should have expire date', () => {
+		test('should have expire date', () => {
 			result = security.verifyToken(token);
 			expect(typeof (result.exp - result.iat)).toBe('number');
 		});
@@ -46,6 +46,22 @@ describe('utils/security', () => {
 		test('should verify password', () => {
 			const result = security.verifyHash(password, hashedPassword);
 			expect(result).toBe(true);
+		});
+	});
+
+	describe('encrypt decrypt', () => {
+		const data = {
+			id: 1,
+		};
+		let encryptedData = '';
+		test('should encrypt data', () => {
+			encryptedData = security.encrypt(data);
+			expect(encryptedData.split(':').length).toBe(2);
+		});
+
+		test('should decrypt data', () => {
+			const result = security.decrypt(encryptedData);
+			expect(result.id).toBe(data.id);
 		});
 	});
 });

@@ -1,6 +1,6 @@
 /**
  * Get new and old value of two objects in root level
- * @todo implement deep and recursive check
+ * @todo implement deep and recursive check / lodash-es?
  */
 export const getDiff = (oldValue: Record<string, any>, newValue: Record<string, any>) => {
 	const diff: { old: Record<string, any>; new: Record<string, any> } = {

@@ -1,6 +1,11 @@
+type IsJsonOption = {
+	/** directly convert to json */
+	convert?: boolean;
+};
+
 /**
  * Convert string to camel case
- * @todo optimize and check simpler way
+ * @todo optimize and check simpler way / lodash-es?
  */
 export const toCamelCase = (str: string) => {
 	// https://www.rexegg.com/regex-boundaries.html#diyb
@@ -13,4 +18,14 @@ export const toCamelCase = (str: string) => {
 			return index === 0 ? match.toLowerCase() : match.toUpperCase();
 		},
 	);
+};
+
+export const isJson = (str: string, options: IsJsonOption = {}) => {
+	const convert = options.convert ?? true;
+	try {
+		const json = JSON.parse(str);
+		return convert ? json : true;
+	} catch (e) {
+		return convert ? str : false;
+	}
 };

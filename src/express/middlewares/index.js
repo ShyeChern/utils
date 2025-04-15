@@ -4,6 +4,7 @@ const logger = require('./logger');
 const error = require('./error');
 const i18n = require('./i18n');
 const cache = require('./cache');
+const cipher = require('./cipher');
 
 module.exports = {
 	auth,
@@ -12,4 +13,5 @@ module.exports = {
 	error,
 	i18n,
 	cache,
+	cipher,
 };

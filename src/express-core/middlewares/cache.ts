@@ -1,4 +1,6 @@
-module.exports = (req, res, next) => {
+import express from 'express';
+
+export const cache = (req: express.Request, res: express.Response, next: express.NextFunction) => {
 	const cache = req.container.cradle.cache.get(req.originalUrl);
 
 	const send = res.send;

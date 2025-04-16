@@ -32,3 +32,4 @@
 ## TODO
 
 - Unit Test & Convert to ts
+- configure absolute path

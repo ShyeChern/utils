@@ -1,12 +1,31 @@
-const path = require('node:path');
-const multer = require('multer');
-const { format } = require('date-fns');
-const { array } = require('../utils');
-const { error: errorCode, file } = require('../constants');
-const { BaseError } = require('../base');
+import path from 'node:path';
+import multer, { DiskStorageOptions } from 'multer';
+import { format } from 'date-fns';
+import { array, Logger } from '../utils';
+import { error as errorCode, file } from '../constants';
+import { BaseError } from '../base';
+import { User } from '../types/user';
+import { I18n } from 'i18n';
+import express, { Express } from 'express';
+import Joi from 'joi';
 
-module.exports = class Base {
-	constructor(opts) {
+export interface BaseOption {
+	currentUser: User;
+	t: I18n['__'];
+	logger: Logger;
+	req: express.Request;
+}
+
+export interface ValidateFileOption {
+	fileSize?: number;
+	destination: DiskStorageOptions['destination'];
+}
+
+export class Base {
+	currentUser: User;
+	t: I18n['__'];
+	logger: Logger;
+	constructor(opts: BaseOption) {
 		this.currentUser = opts.currentUser;
 		this.t = opts.req.__;
 		this.logger = opts.logger;
@@ -17,7 +36,11 @@ module.exports = class Base {
 		return entity.charAt(0).toLowerCase() + entity.slice(1);
 	}
 
-	async validate(schema, data, options = {}) {
+	async validate(
+		schema: Joi.Schema,
+		data: Record<string, unknown>,
+		options: Joi.ValidationOptions = {},
+	) {
 		options = {
 			abortEarly: false,
 			errors: {
@@ -47,7 +70,7 @@ module.exports = class Base {
 		});
 	}
 
-	async validateFile(req, res, options = {}) {
+	async validateFile(req: express.Request, res: express.Response, options: ValidateFileOption) {
 		const storage = multer.diskStorage({
 			destination: options.destination,
 			filename: function (req, file, cb) {
@@ -65,7 +88,9 @@ module.exports = class Base {
 
 		const promise = await new Promise((resolve, reject) => {
 			upload(req, res, (err) => {
-				req.files = array.groupBy(req.files ?? [], { field: 'fieldname' });
+				req.files = array.groupBy((req.files as Express.Multer.File[]) ?? [], {
+					field: 'fieldname',
+				});
 
 				this.logger.info('form data body', JSON.stringify(req.body));
 				this.logger.info(
@@ -85,7 +110,7 @@ module.exports = class Base {
 							{
 								code: err.code,
 								error: {
-									[err.field]: [{ message: err.message }],
+									[`${err.field}`]: [{ message: err.message }],
 								},
 							},
 						),
@@ -98,4 +123,4 @@ module.exports = class Base {
 		});
 		return promise;
 	}
-};
+}

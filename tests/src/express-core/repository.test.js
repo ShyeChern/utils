@@ -1,7 +1,11 @@
 const { express } = require('../../../lib');
 const model = require('../../../lib/mongodb/audits/audits.model');
+const mongoose = require('mongoose');
 
 describe('express/repository', () => {
+	const custom = {
+		paranoid: true,
+	};
 	const repository = new express.RepositoryBase(model, {
 		req: { __: (v) => v },
 		mongodb: {
@@ -17,8 +21,14 @@ describe('express/repository', () => {
 					updateMany: (...v) => ({ ...v }),
 					deleteMany: (...v) => ({ ...v }),
 					schema: {
+						get(v) {
+							const options = {
+								custom: custom,
+							};
+							return options[v];
+						},
 						options: {
-							custom: { paranoid: true },
+							custom: custom,
 						},
 					},
 				},
@@ -28,28 +38,27 @@ describe('express/repository', () => {
 		currentUser: { id: 1, username: 'username' },
 	});
 
-	describe('getDefaultOption', () => {
+	describe('setOption', () => {
 		test('should able to get and overwrite default option', async () => {
 			const overwriteUser = 'currentUser';
-			const result = repository.getDefaultOption({ currentUser: overwriteUser });
+			const result = repository.setOption({ currentUser: overwriteUser });
 			expect(result.currentUser).toBe(overwriteUser);
 		});
 	});
 
 	describe('transformData', () => {
-		const transformedData = 'transformed';
-		const data = {
-			constructor: { name: 'model' },
-			toJSON: () => 'transformed',
-		};
+		const MyModel = mongoose.model('Test', new mongoose.Schema({ name: String }));
+		const name = '123';
+		const data = new MyModel({ name });
 		test('should able to transform object data', async () => {
 			const result = repository.transformData(data);
-			expect(result).toBe(transformedData);
+			expect(result._id).toBeTruthy();
+			expect(result.name).toBe(name);
 		});
 
 		test('should able to transform array data', async () => {
 			const result = repository.transformData([data, data, data]);
-			expect(result.every((v) => v === transformedData)).toBe(true);
+			expect(result.every((v) => v._id && v.name === name)).toBe(true);
 		});
 	});
 
@@ -182,6 +191,9 @@ describe('express/repository', () => {
 		test('should able to hard delete data', async () => {
 			const spyFunc = jest.spyOn(repository.model, 'deleteMany');
 			repository.model.schema.options.custom.paranoid = false;
+			repository.model.schema.get = (v) => {
+				return { custom: { paranoid: false } }[v];
+			};
 			const filter = { id: 1 };
 			const result = await repository.delete(filter);
 			expect(result[0]).toBe(filter);

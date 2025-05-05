@@ -1,4 +1,6 @@
-module.exports = (req, res, next) => {
+import express from 'express';
+
+export const logger = (req: express.Request, res: express.Response, next: express.NextFunction) => {
 	req.container.cradle.logger.info('Start request');
 	req.container.cradle.logger.info('headers', JSON.stringify(req.headers));
 	req.container.cradle.logger.info(req.method, req.url);

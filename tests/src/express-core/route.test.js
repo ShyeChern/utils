@@ -1,4 +1,4 @@
-const routes = require('../../../lib/express/routes');
+const routes = require('../../../lib/express-core/routes');
 const { constants } = require('../../../lib');
 
 jest.mock('awilix', () => {

@@ -1,4 +1,4 @@
-const { RepositoryBase } = require('../../express');
+const { RepositoryBase } = require('../../express-core');
 const model = require('./audits.model');
 
 module.exports = class AuditRepository extends RepositoryBase {

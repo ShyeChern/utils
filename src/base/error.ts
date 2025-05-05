@@ -3,13 +3,13 @@ import { app } from '../constants';
 export type ErrorParam = {
 	statusCode?: number;
 	code?: string;
-	error?: object;
+	error?: Record<string, unknown>;
 };
 
 export class BaseError extends Error {
 	statusCode: number;
 	code?: string;
-	error?: object;
+	error?: Record<string, unknown>;
 
 	constructor(message: string, params?: string | number | ErrorParam) {
 		super(message);

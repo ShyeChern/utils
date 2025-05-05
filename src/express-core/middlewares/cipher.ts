@@ -1,8 +1,9 @@
-const { BaseError } = require('../../base');
-const { security } = require('../../utils');
-const { app } = require('../../constants');
+import express from 'express';
+import { BaseError } from '../../base';
+import { security } from '../../utils';
+import { app } from '../../constants';
 
-module.exports = (req, res, next) => {
+export const cipher = (req: express.Request, res: express.Response, next: express.NextFunction) => {
 	const key = req.headers['AES-HEX-KEY'];
 	if (key === process.env.AES_HEX_KEY) return next();
 	if (req.method !== 'GET') {

@@ -1,4 +1,4 @@
-const middlewares = require('../../../../lib/express/middlewares');
+const middlewares = require('../../../../lib/express-core/middlewares');
 const { BaseError, constants } = require('../../../../lib');
 
 describe('express/middlewares', () => {

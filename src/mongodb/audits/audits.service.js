@@ -1,5 +1,5 @@
 const { object } = require('../../utils');
-const { ServiceBase } = require('../../express');
+const { ServiceBase } = require('../../express-core');
 const { app } = require('../../constants');
 
 module.exports = class AuditService extends ServiceBase {

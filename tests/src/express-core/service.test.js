@@ -1,5 +1,5 @@
 const { expressCore, constants } = require('../../../lib');
-const model = require('../../../lib/mongodb/audits/audits.model');
+const model = require('../../../lib/mongodb-core/audits/audits.model');
 
 describe('express/service', () => {
 	const service = new expressCore.ServiceBase({ req: { __: (v) => v } });

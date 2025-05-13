@@ -34,3 +34,4 @@
 - Unit Test & Convert to ts
 - configure absolute path
 - eslint ts
+- seeder migration as value && ts

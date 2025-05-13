@@ -47,9 +47,9 @@ export const init = async (config: ExpressInitConfig = {}) => {
 	app.use(routes(container.cradle, config));
 	app.use(middleware.error);
 
-	app.listen(port, () => {
+	const server = app.listen(port, () => {
 		console.log(`Listening on port ${port}`);
 	});
 
-	return app;
+	return server;
 };

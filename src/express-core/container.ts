@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import NodeCache from 'node-cache';
 import { string, Logger } from '../utils';
 import { cache } from '../constants';
-import mongo from '../mongodb';
+import mongodbCore from '../mongodb-core';
 import { LoadModulesOptions } from 'awilix/lib/load-modules';
 import express from 'express';
 
@@ -28,11 +28,11 @@ const init = (opts: Record<string, unknown>) => {
 			['src/*/*/*.model.js', { register: awilix.asValue, lifetime: awilix.Lifetime.SINGLETON }],
 			['src/*/*/*.route.js', { register: awilix.asValue, lifetime: awilix.Lifetime.SINGLETON }],
 			[
-				'src/mongodb/seeders/*.seeder.js',
+				'src/mongodb*/seeders/*.seeder.js',
 				{ register: awilix.asValue, lifetime: awilix.Lifetime.SINGLETON },
 			],
 			[
-				'src/mongodb/migrations/*.migration.js',
+				'src/mongodb*/migrations/*.migration.js',
 				{ register: awilix.asValue, lifetime: awilix.Lifetime.SINGLETON },
 			],
 		];
@@ -42,19 +42,23 @@ const init = (opts: Record<string, unknown>) => {
 				if (name.includes('.route')) return name;
 
 				const value = descriptor.value as Record<string, unknown>;
-				if (typeof value.name === 'string') return string.toCamelCase(value.name as string);
+				if (typeof value.name === 'string' && value.name !== '') {
+					return string.toCamelCase(value.name as string);
+				}
 
-				return value.name as string;
+				return name;
 			},
 		};
 
+		// load modules in service
 		container.loadModules(modules, options);
+		// load default modules in package
 		container.loadModules(
 			modules.map((v) => [v[0].replace('src', '..'), v[1]] as awilix.GlobWithOptions),
 			{ ...options, cwd: __dirname },
 		);
 
-		const mongodb = await mongo.init(opts);
+		const mongodb = await mongodbCore.init(opts);
 		const appCache = new NodeCache();
 		appCache.set(cache.ROLE, {});
 		container.register({ cache: awilix.asValue(appCache), mongodb: awilix.asValue(mongodb) });

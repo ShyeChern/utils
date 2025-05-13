@@ -1,5 +1,5 @@
 const { expressCore } = require('../../../lib');
-const model = require('../../../lib/mongodb/audits/audits.model');
+const model = require('../../../lib/mongodb-core/audits/audits.model');
 const mongoose = require('mongoose');
 
 describe('express/repository', () => {

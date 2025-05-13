@@ -14,6 +14,7 @@ declare module 'mongoose' {
 		custom: {
 			paranoid: boolean;
 			author: boolean;
+			middleware: boolean;
 		};
 	}
 }

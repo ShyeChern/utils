@@ -62,7 +62,7 @@ export class ServiceBase extends Base {
 	}
 
 	async update(id: string, data: Record<string, unknown>) {
-		const value = await this.get({ id });
+		const value = (await this.get({ id })) as Record<string, unknown>;
 		this.checkConcurrency(value, data);
 		await this.getRepository().update({ _id: id }, data);
 		return { id };

@@ -50,7 +50,7 @@ module.exports = class AuditService extends ServiceBase {
 			const newValues = await query.model.find(
 				query.getFilter(),
 				{},
-				{ lean: true, skipMiddleware: true },
+				{ lean: true, middleware: false },
 			);
 
 			const details = {

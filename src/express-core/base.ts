@@ -10,7 +10,7 @@ import express, { Express } from 'express';
 import Joi from 'joi';
 import mongoose from 'mongoose';
 // TODO: audit service ts
-// import { AuditService } from '../mongodb/audits/audits.service';
+// import { AuditService } from '../mongodb-core/audits/audits.service';
 
 export interface BaseOption {
 	currentUser: User;

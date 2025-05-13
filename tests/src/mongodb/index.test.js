@@ -1,5 +1,5 @@
-const mongodb = require('../../../lib/mongodb');
-const AuditModel = require('../../../lib/mongodb/audits/audits.model');
+const mongodb = require('../../../lib/mongodb-core');
+const AuditModel = require('../../../lib/mongodb-core/audits/audits.model');
 
 // TODO: convert to ts
 describe('mongodb', () => {

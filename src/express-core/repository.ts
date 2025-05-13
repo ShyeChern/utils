@@ -2,7 +2,7 @@ import { Base, type BaseOption } from './base';
 import { User } from '../types/user';
 import { type ServiceBaseGetAll } from './';
 // TODO: audit service ts
-// import { AuditService } from '../mongodb/audits/audits.service';
+// import { AuditService } from '../mongodb-core/audits/audits.service';
 import mongoose from 'mongoose';
 import * as mdb from 'mongodb';
 
@@ -12,25 +12,35 @@ export interface RepositoryBaseSetOption {
 	// auditService: this.auditService,
 }
 
-export interface RepositoryBaseAggregateOption extends mongoose.AggregateOptions {
+export interface RepositoryBaseMongooseOptions {
+	/** run custom mongoose middleware. Default: true */
+	middleware?: boolean;
+}
+
+export interface RepositoryBaseAggregateOption
+	extends mongoose.AggregateOptions,
+		RepositoryBaseMongooseOptions {
 	/** add id field and remove _id and __v. Default: true */
 	id?: boolean;
 }
 
 export interface RepositoryBaseCountOption
 	extends mdb.CountOptions,
-		mongoose.MongooseBaseQueryOptions {}
+		mongoose.MongooseBaseQueryOptions,
+		RepositoryBaseMongooseOptions {}
 
 export interface RepositoryBaseUpdateOption
 	extends mdb.UpdateOptions,
-		mongoose.MongooseUpdateQueryOptions {
+		mongoose.MongooseUpdateQueryOptions,
+		RepositoryBaseMongooseOptions {
 	/** force update to whole collection when filter is empty. Default: false */
 	force?: boolean;
 }
 
 export interface RepositoryBaseDeleteOption
 	extends mdb.DeleteOptions,
-		mongoose.MongooseBaseQueryOptions {
+		mongoose.MongooseBaseQueryOptions,
+		RepositoryBaseMongooseOptions {
 	/** force delete to whole collection when filter is empty. Default: false */
 	force?: boolean;
 }
@@ -72,7 +82,7 @@ export class RepositoryBase extends Base {
 	async getAll(
 		filter: mongoose.RootFilterQuery<unknown>,
 		projection?: mongoose.ProjectionType<unknown>,
-		options: mongoose.QueryOptions = {},
+		options: mongoose.QueryOptions & RepositoryBaseMongooseOptions = {},
 	) {
 		const mergedOption = this.setOption(options);
 		const result = await this.model.find(filter, projection, mergedOption);
@@ -82,7 +92,7 @@ export class RepositoryBase extends Base {
 	async get(
 		filter?: mongoose.RootFilterQuery<unknown>,
 		projection?: mongoose.ProjectionType<unknown>,
-		options: mongoose.QueryOptions = {},
+		options: mongoose.QueryOptions & RepositoryBaseMongooseOptions = {},
 	) {
 		const mergedOption = this.setOption(options);
 		const result = await this.model.findOne(filter, projection, mergedOption);
@@ -98,7 +108,10 @@ export class RepositoryBase extends Base {
 	async paginate(
 		filter: mongoose.RootFilterQuery<unknown>,
 		projection?: mongoose.ProjectionType<unknown>,
-		options: ServiceBaseGetAll & mongoose.QueryOptions & RepositoryBaseCountOption = {},
+		options: ServiceBaseGetAll &
+			mongoose.QueryOptions &
+			RepositoryBaseCountOption &
+			RepositoryBaseMongooseOptions = {},
 	) {
 		const limit = options.limit ?? 10;
 		const page = options.page ?? 1;
@@ -132,7 +145,9 @@ export class RepositoryBase extends Base {
 
 	async create(
 		data: Array<Record<string, unknown>> | Record<string, unknown>,
-		options: mongoose.InsertManyOptions & mongoose.CreateOptions = {},
+		options: mongoose.InsertManyOptions &
+			mongoose.CreateOptions &
+			RepositoryBaseMongooseOptions = {},
 	) {
 		const mergedOption = this.setOption(options);
 		const result = await (Array.isArray(data)
